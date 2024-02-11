@@ -10,7 +10,7 @@
 <body>
   <nav 
   class="navbar navbar-expand-lg"
-  :class="{'navbar-dark bg-dark': useDarkBar, 'navbar-light bg-light': !useDarkBar}"
+  :class="navBarClasses"
   >
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
@@ -39,6 +39,16 @@
   <script>
     const {createApp} = Vue
     createApp({
+      computed: {
+        navBarClasses() {
+          return {
+            'navbar-light': !this.useDarkBar,
+            'bg-light': !this.useDarkBar,
+            'navbar-dark': this.useDarkBar,
+            'bg-dark': this.useDarkBar,
+          }
+        }
+      },
       data() {
         return {
           useDarkBar: false,
