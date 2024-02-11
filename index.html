@@ -10,7 +10,7 @@
 <body>
   <nav 
   class="navbar navbar-expand-lg"
-  :class="navBarClasses"
+  :class="[`navbar-${theme}`, `bg-${theme}`, `navbar navbar-expand-lg`]"
   >
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
@@ -28,8 +28,8 @@
     <form class="d-flex">
       <button
       class="btn btn-primary"
-      @click.prevent="useDarkBar = !useDarkBar"
-      >Toggle Navbar</button>
+      @click.prevent="changeTheme()"
+      >Toggle</button>
     </form>
   </nav>
   <div id="content" class="container">
@@ -39,19 +39,9 @@
   <script>
     const {createApp} = Vue
     createApp({
-      computed: {
-        navBarClasses() {
-          return {
-            'navbar-light': !this.useDarkBar,
-            'bg-light': !this.useDarkBar,
-            'navbar-dark': this.useDarkBar,
-            'bg-dark': this.useDarkBar,
-          }
-        }
-      },
       data() {
         return {
-          useDarkBar: false,
+          theme: 'light',
           activePage: 0,
           pages: [
             {
@@ -70,6 +60,15 @@
               content: 'This is the Contact page content',
             },
           ],
+        }
+      },
+      methods: {
+        changeTheme() {
+          let theme = 'light'
+          if(theme === this.theme) {
+            theme = 'dark'
+          }
+          this.theme = theme
         }
       }
     }).mount('body')
